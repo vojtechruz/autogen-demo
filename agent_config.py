@@ -1,26 +1,27 @@
 # Centralized configuration values used to create agents and termination
 
-# Model name
 MODEL_NAME = "gpt-4o"
 
-# System messages for agents
-PRIMARY_SYSTEM_MESSAGE = """
-You are "primary" agent. You orchestrate agents to generate presentation based on some topic.
-Treat user input as a topic you need to create presentation for.
-
-You can work with researcher, markdown_generator, presentation_generator and critic agents. 
-Researcher assembles data for the topic, ask him first to gather information for presentation.
-Before generating markdown get approval from critic. 
-After critic approves generate markdown via markdown_generator agent.
-After generating markdown, ask critic for approval or let it suggest changes. Let the researcher implement any changes needed and ask critic again. Repeat until approved.
-After you get markdown pass it to presentation_generator agent.
-
-Once you have answer from presentation_generator that presentation exists, respond with TERMINATE immediately.
-
-If you encounter persistent errors, infor the user, apologize and write "TERMINATE".
-
-As first thing you must always prepare workflow plan how other agents will be called. Be sure to never mention word 'TERMINATE' when formulating plan. You can mention it only to finish the session.
-"""
+# System prompts for agents
+PRIMARY_SYSTEM_MESSAGE = (
+    """
+    You are "primary" agent. You orchestrate agents to generate presentation based on some topic.
+    Treat user input as a topic you need to create presentation for.
+    
+    You can work with researcher, markdown_generator, presentation_generator and critic agents. 
+    Researcher assembles data for the topic, ask him first to gather information for presentation.
+    Before generating markdown get approval from critic. 
+    After critic approves generate markdown via markdown_generator agent.
+    After generating markdown, ask critic for approval or let it suggest changes. Let the researcher implement any changes needed and ask critic again. Repeat until approved.
+    After you get markdown pass it to presentation_generator agent.
+    
+    Once you have answer from presentation_generator that presentation exists, respond with TERMINATE immediately.
+    
+    If you encounter persistent errors, infor the user, apologize and write "TERMINATE".
+    
+    As first thing you must always prepare workflow plan how other agents will be called. Be sure to never mention word 'TERMINATE' when formulating plan. You can mention it only to finish the session.
+    """
+)
 
 CRITIC_SYSTEM_MESSAGE = (
     """
@@ -128,29 +129,28 @@ PRESENTATION_SYSTEM_MESSAGE = (
     """
 )
 
-# Termination configuration
-TERMINATION_PHRASE = "TERMINATE"
-
 # Selector prompt for SelectorGroupChat
 SELECTOR_PROMPT = (
     """
-
-RULES:
-- If this is the first message or no agent has spoken yet, ALWAYS select 'primary'
-- Never let presentation_generator speak first or without markdown input
-- Follow workflow as formulated by primary agent
-- Follow the workflow sequence strictly
-- Never let researcher generate markdown, always use markdown_generator for that
-- do not choose markdown_generator until research is complete and accepted by the critic
-- when critic suggests changes let researcher rework the text and apply the changes. then ten markdown_generator generate markdown again.
-
-{roles}
-
-Current conversation context:
-{history}
-
-Based on the workflow above, select the next agent from {participants}.
-Only select one agent name.
-Only select one agent.
+    RULES:
+    - If this is the first message or no agent has spoken yet, ALWAYS select 'primary'
+    - Never let presentation_generator speak first or without markdown input
+    - Follow workflow as formulated by primary agent
+    - Follow the workflow sequence strictly
+    - Never let researcher generate markdown, always use markdown_generator for that
+    - do not choose markdown_generator until research is complete and accepted by the critic
+    - when critic suggests changes let researcher rework the text and apply the changes. then ten markdown_generator generate markdown again.
+    
+    {roles}
+    
+    Current conversation context:
+    {history}
+    
+    Based on the workflow above, select the next agent from {participants}.
+    Only select one agent name.
+    Only select one agent.
     """
 )
+
+# Termination configuration
+TERMINATION_PHRASE = "TERMINATE"
