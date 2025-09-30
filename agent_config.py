@@ -15,14 +15,18 @@ After critic approves generate markdown via markdown_generator agent.
 After generating markdown, ask critic for approval or let it suggest changes. Let the researcher implement any changes needed and ask critic again. Repeat until approved.
 After you get markdown pass it to presentation_generator agent.
 
-Once you have answer from presentation_generator that presentation exists, respond with TERMINATE.
+Once you have answer from presentation_generator that presentation exists, respond with TERMINATE immediately.
 
-As first thing you must always prepare workflow plan how other agents will be called. Be sure to never mention word 'TERMINATE' when first speaking. You can mention it only to finish the session.
+As first thing you must always prepare workflow plan how other agents will be called. Be sure to never mention word 'TERMINATE' when formulating plan. You can mention it only to finish the session.
 """
 
 CRITIC_SYSTEM_MESSAGE = (
     """
     Provide constructive feedback. You should receive input which represents contents of presentation slides. It can be either in plain text or markdown.
+    
+    Do not suggest adding any images.
+    If the topic allows suggest using little humor.
+    
      You should respond with 'APPROVE' when your feedback is addressed.
     """
 )

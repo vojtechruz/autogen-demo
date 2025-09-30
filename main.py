@@ -154,7 +154,7 @@ async def main():
     topic = "Is hawaii real pizza"
     print(f"\n{Colors.BLUE}=== Autogen Demo: Multi-Agent PPTX Generator ==={Colors.ENDC}")
     print(f"{Colors.BLUE}Topic: {topic}{Colors.ENDC}")
-    print(f"{Colors.BLUE}="*80 + "{Colors.ENDC}\n")
+    print(f"{Colors.BLUE}="*80 + f"{Colors.ENDC}\n")
 
     # Always stream so users can see live progress
     print(f"{Colors.BLUE}[info] Streaming conversation...{Colors.ENDC}", flush=True)
