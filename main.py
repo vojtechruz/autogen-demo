@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 
-def generate_presentation(markdown: str, out_path: str = ".\\out.pptx") -> str:
+def generate_presentation(markdown: str, out_path: str = "out.pptx") -> str:
     """Generate a PowerPoint using Pandoc.
 
     Equivalent to running: pandoc example.md -o out.pptx --reference-doc=template.pptx

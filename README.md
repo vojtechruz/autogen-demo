@@ -18,10 +18,10 @@ The entry point is main.py. The agent settings live in agent_config.py.
 
 
 ## Prerequisites
-- Windows (project paths are written for Windows; other OSes can work with small path adjustments)
+- Windows, macOS, or Linux
 - Python 3.10+ (3.11 recommended)
 - Pandoc installed and available on PATH
-  - Install: https://pandoc.org/installing.html
+  - Install: https://pandoc.org/installing.html (macOS: brew install pandoc; Linux: use your package manager or the official installer)
   - After installing, open a new terminal and run: pandoc --version
 - An OpenAI API key
 
@@ -60,6 +60,42 @@ The entry point is main.py. The agent settings live in agent_config.py.
    - When finished, you should see out.pptx in the project root.
 
 
+## Quick start (macOS/Linux Bash)
+1) Clone this repository and open a terminal in the project folder.
+
+2) Create and activate a virtual environment:
+   - Create: python3 -m venv .venv
+   - Activate: source .venv/bin/activate
+
+3) Install Python dependencies from requirements.txt:
+
+   python3 -m pip install --upgrade pip
+   python3 -m pip install -r requirements.txt
+
+4) Install Pandoc (if not already):
+   - macOS (Homebrew): brew install pandoc
+   - Debian/Ubuntu: sudo apt-get update && sudo apt-get install -y pandoc
+   - Fedora: sudo dnf install -y pandoc
+   - Or use the official installers: https://pandoc.org/installing.html
+   - Confirm it works: pandoc --version
+
+5) Provide your OpenAI API key:
+   - EITHER create a .env file in the project root with:
+
+     OPENAI_API_KEY=sk-...your-key-here...
+
+   - OR export it in your shell before running:
+
+     export OPENAI_API_KEY=sk-...your-key-here...
+
+6) Run the demo:
+
+   python3 ./main.py
+
+   - The console will stream the multi-agent conversation.
+   - When finished, you should see out.pptx in the project root.
+
+
 ## Configuration
 - Agent prompts and model name are in agent_config.py.
 - Default OpenAI model name: gpt-4o (adjust MODEL_NAME if needed).
@@ -73,6 +109,6 @@ The entry point is main.py. The agent settings live in agent_config.py.
 
 ## Troubleshooting
 - Module not found (autogen_…): Ensure you installed dependencies via `pip install -r requirements.txt` and you’re using the correct Python venv.
-- Pandoc failed: Verify pandoc --version works in the same terminal. On Windows, reopen PowerShell after installing Pandoc to refresh PATH.
+- Pandoc failed: Verify pandoc --version works in the same terminal. On Windows, reopen PowerShell after installing Pandoc to refresh PATH; on macOS/Linux, open a new terminal or re-source your shell config (e.g., source ~/.bashrc or exec $SHELL) so PATH updates take effect.
 - OPENAI_API_KEY is required: Create the .env file as shown or export the variable in your shell before running.
 - SSL or network issues: Try again from a different network or ensure corporate proxies are configured in your environment.
