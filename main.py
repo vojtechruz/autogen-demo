@@ -26,6 +26,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+class Colors:
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    ENDC = '\033[0m'  # End color
 
 def generate_presentation(markdown: str, out_path: str = "out.pptx") -> str:
     """Generate a PowerPoint using Pandoc.
@@ -142,9 +148,31 @@ async def main():
         allow_repeated_speaker=False,# Disallow an agent to speak multiple turns in a row.
     )
 
-    # Run the task
-    await Console(
-        team.run_stream(task="Is hawaii real pizza"))  # Stream the messages to the console.
+    # This is just for custom message logging, for default logging just do
+    # await Console(team.run_stream(task="Is hawaii real pizza"))
+
+    topic = "Is hawaii real pizza"
+    print(f"\n{Colors.BLUE}=== Autogen Demo: Multi-Agent PPTX Generator ==={Colors.ENDC}")
+    print(f"{Colors.BLUE}Topic: {topic}{Colors.ENDC}")
+    print(f"{Colors.BLUE}="*80 + "{Colors.ENDC}\n")
+
+    # Always stream so users can see live progress
+    print(f"{Colors.BLUE}[info] Streaming conversation...{Colors.ENDC}", flush=True)
+    async for msg in team.run_stream(task=topic):
+        author = getattr(msg, "source", None) or getattr(msg, "sender", None) or getattr(msg, "name", None) or getattr(msg, "role", None) or "agent"
+        content = getattr(msg, "content", None)
+        if content is None:
+            try:
+                # Some SDKs wrap text in .body or .text
+                content = getattr(msg, "body", None) or getattr(msg, "text", None) or str(msg)
+            except Exception:
+                content = str(f"{Colors.RED}{msg}{Colors.ENDC}")
+        sep = "=" * 80
+        # print(sep, flush=True)
+        print(f"\n{Colors.BLUE}[{author}] {sep}{Colors.ENDC}\n", flush=True)
+        print(content, flush=True)
+
+    print(f"\n{Colors.GREEN}=== Done ==={Colors.ENDC}")
 
 
 if __name__ == "__main__":
