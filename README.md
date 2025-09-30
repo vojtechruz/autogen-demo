@@ -38,8 +38,8 @@ The entry point is main.py. The agent settings live in agent_config.py.
 3) Install Python dependencies:
    - Install from requirements.txt:
 
-     pip install --upgrade pip
-     pip install -r requirements.txt
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
 
    This will install the Autogen components and helpers defined in requirements.txt (e.g., autogen-agentchat>=0.4.0, autogen-ext[openai]>=0.4.0, python-dotenv) and their transitive dependencies.
 
