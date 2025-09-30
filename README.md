@@ -30,7 +30,7 @@ The entry point is main.py. The agent settings live in agent_config.py.
 1) Clone this repository and open a PowerShell prompt in the project folder.
 
 2) Create and activate a virtual environment:
-   - Create: py -3.11 -m venv .venv
+   - Create: python -m venv .venv
    - Activate: .\.venv\Scripts\Activate.ps1
    - If activation is blocked, start PowerShell "As Administrator" and run:
      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser

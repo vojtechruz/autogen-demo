@@ -17,6 +17,8 @@ After you get markdown pass it to presentation_generator agent.
 
 Once you have answer from presentation_generator that presentation exists, respond with TERMINATE immediately.
 
+If you encounter persistent errors, infor the user, apologize and write "TERMINATE".
+
 As first thing you must always prepare workflow plan how other agents will be called. Be sure to never mention word 'TERMINATE' when formulating plan. You can mention it only to finish the session.
 """
 
